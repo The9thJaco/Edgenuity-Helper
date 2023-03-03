@@ -4,7 +4,7 @@
 // @name         Edgenuity Helper
 // @namespace    http://tampermonkey.net/
 // @version      0.1
-// @description  an automatic next clicker
+// @description  an automatic next clicker, unlimited answer search for brainly, & mini search bar to look up answers quicker in a new tab 
 // @author       9th jaco
 // @match        *://*.core.learn.edgenuity.com/*
 // @match        https://brainly.com/question/*
