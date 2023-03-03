@@ -60,40 +60,46 @@ function triggerEvent(el, type) {
         el.fireEvent('on'+e.eventType, e);
     }
 }
-let input = document.createElement("input");
-input.id = "InsertQuestion";
-input.placeholder = "Put Question Here";
+let searchUp = document.createElement("input");
+searchUp.id = "InsertQuestion";
+searchUp.placeholder = "Put Question Here";
+
+let searchbtn = document.createElement("button");
+searchbtn.id = "SearchUpQuestion";
+searchbtn.style.color = "#FFFFFF";
+searchbtn.style.border = "2px solid #D3D3D3";
+searchbtn.style.borderRadius = "32px";
+searchbtn.style.cursor = "pointer";
+searchbtn.style.marginRight = "4px";
+searchbtn.textContent = "Search Up Answer";
+searchbtn.style.backgroundColor = "#0A6522";
 
 let btn = document.createElement("button");
-
-btn.id = "SearchUpQuestion";
+btn.id = "COCK";
 btn.style.color = "#FFFFFF";
-btn.style.border = "2px solid #D3D3D3";
-btn.style.borderRadius = "32px";
-btn.style.cursor = "pointer";
-btn.style.marginRight = "4px";
-btn.textContent = "Search Up Answer";
-btn.style.backgroundColor = "#0A6522";
+btn.style.backgroundColor = "#00FF00";
 
-function ButtonColor(color)
+
+function searchButtonColor(color)
 {
-    btn.style.backgroundColor = color;
+    searchbtn.style.backgroundColor = color;
 }
 
-function RespondClick()
+function searchRespondClick()
 {
     ButtonColor("#00FF00")
-    var url = "https://www.bing.com/search?q=" + input.value;
+    var url = "https://www.bing.com/search?q=" + searchinput.value;
     //search?q=site:brainly.com+
-    //"https://brainly.com/app/ask?q=" + input.value;
+    //"https://brainly.com/app/ask?q=" + searchinput.value;
     window.open(url, '_blank');
     document.getElementById("SearchQuestion").reset();
+    searchinput.value.reset();
 }
-function RespondOver()
+function searchRespondOver()
 {
     ButtonColor("#FF0000")
 }
-function RespondOut()
+function searchRespondOut()
 {
     ButtonColor("#0A6522")
 }
@@ -129,12 +135,14 @@ variable current_page is unused as of right now because of a bug
             SearchQuestionDiv.style = "width: 854px;";
             SearchQuestionDiv.style.padding = "10px 250px";
             var lessonInfo = document.getElementById("lesson-title");
+            var questionArea = document.getElementById("");
+            var questionAsked = document.getElementById("");
             const infoElemSelector = "div#lessonInfo";
 
-            btn.addEventListener("click", RespondClick);
-            input.addEventListener('submit',RespondClick);
-            btn.addEventListener("mouseover", RespondOver);
-            btn.addEventListener("mouseout", RespondOut);
+            searchbtn.addEventListener("click", searchRespondClick);
+            searchUp.addEventListener('submit',searchRespondClick);
+            searchbtn.addEventListener("mouseover", searchRespondOver);
+            searchbtn.addEventListener("mouseout", searchRespondOut);
 
             SearchQuestionDiv.appendChild(input);
             SearchQuestionDiv.appendChild(btn);
@@ -142,6 +150,10 @@ variable current_page is unused as of right now because of a bug
             {
                 let infoElem = document.querySelector(infoElemSelector);
                 infoElem.parentElement.insertBefore(SearchQuestionDiv, infoElem.nextSibling);
+            }
+            if(questionArea)
+            {
+                //search up answer and pick letter
             }
         }
         if(skip_speaking_intros){
