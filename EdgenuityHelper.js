@@ -1,10 +1,8 @@
-//testing
-
 // ==UserScript==
 // @name         Edgenuity Helper
-// @namespace    http://tampermonkey.net/
+// @namespace    http://https://github.com/The9thJaco
 // @version      0.1
-// @description  an automatic next clicker, unlimited answer search for brainly, & mini search bar to look up answers quicker in a new tab 
+// @description  an automatic next clicker
 // @author       9th jaco
 // @match        *://*.core.learn.edgenuity.com/*
 // @match        https://brainly.com/question/*
@@ -60,46 +58,40 @@ function triggerEvent(el, type) {
         el.fireEvent('on'+e.eventType, e);
     }
 }
-let searchUp = document.createElement("input");
-searchUp.id = "InsertQuestion";
-searchUp.placeholder = "Put Question Here";
-
-let searchbtn = document.createElement("button");
-searchbtn.id = "SearchUpQuestion";
-searchbtn.style.color = "#FFFFFF";
-searchbtn.style.border = "2px solid #D3D3D3";
-searchbtn.style.borderRadius = "32px";
-searchbtn.style.cursor = "pointer";
-searchbtn.style.marginRight = "4px";
-searchbtn.textContent = "Search Up Answer";
-searchbtn.style.backgroundColor = "#0A6522";
+let input = document.createElement("input");
+input.id = "InsertQuestion";
+input.placeholder = "Put Question Here";
 
 let btn = document.createElement("button");
-btn.id = "COCK";
+
+btn.id = "SearchUpQuestion";
 btn.style.color = "#FFFFFF";
-btn.style.backgroundColor = "#00FF00";
+btn.style.border = "2px solid #D3D3D3";
+btn.style.borderRadius = "32px";
+btn.style.cursor = "pointer";
+btn.style.marginRight = "4px";
+btn.textContent = "Search Up Answer";
+btn.style.backgroundColor = "#0A6522";
 
-
-function searchButtonColor(color)
+function ButtonColor(color)
 {
-    searchbtn.style.backgroundColor = color;
+    btn.style.backgroundColor = color;
 }
 
-function searchRespondClick()
+function RespondClick()
 {
     ButtonColor("#00FF00")
-    var url = "https://www.bing.com/search?q=" + searchinput.value;
+    var url = "https://www.bing.com/search?q=" + input.value;
     //search?q=site:brainly.com+
-    //"https://brainly.com/app/ask?q=" + searchinput.value;
+    //"https://brainly.com/app/ask?q=" + input.value;
     window.open(url, '_blank');
     document.getElementById("SearchQuestion").reset();
-    searchinput.value.reset();
 }
-function searchRespondOver()
+function RespondOver()
 {
     ButtonColor("#FF0000")
 }
-function searchRespondOut()
+function RespondOut()
 {
     ButtonColor("#0A6522")
 }
@@ -135,14 +127,12 @@ variable current_page is unused as of right now because of a bug
             SearchQuestionDiv.style = "width: 854px;";
             SearchQuestionDiv.style.padding = "10px 250px";
             var lessonInfo = document.getElementById("lesson-title");
-            var questionArea = document.getElementById("");
-            var questionAsked = document.getElementById("");
             const infoElemSelector = "div#lessonInfo";
 
-            searchbtn.addEventListener("click", searchRespondClick);
-            searchUp.addEventListener('submit',searchRespondClick);
-            searchbtn.addEventListener("mouseover", searchRespondOver);
-            searchbtn.addEventListener("mouseout", searchRespondOut);
+            btn.addEventListener("click", RespondClick);
+            input.addEventListener('submit',RespondClick);
+            btn.addEventListener("mouseover", RespondOver);
+            btn.addEventListener("mouseout", RespondOut);
 
             SearchQuestionDiv.appendChild(input);
             SearchQuestionDiv.appendChild(btn);
@@ -150,10 +140,6 @@ variable current_page is unused as of right now because of a bug
             {
                 let infoElem = document.querySelector(infoElemSelector);
                 infoElem.parentElement.insertBefore(SearchQuestionDiv, infoElem.nextSibling);
-            }
-            if(questionArea)
-            {
-                //search up answer and pick letter
             }
         }
         if(skip_speaking_intros){
