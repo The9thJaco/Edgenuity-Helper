@@ -16,7 +16,7 @@ var skip_speaking_intros = true;
 // Bugs:
 //
 // May cause "Unable to load video file." error (You can change skip_speaking_intros if this problem occurs).  The program as of right now will just turn off the display of the error message that pops up.  I will look into fixing it
-
+//https://github.com/The9thJaco/Edgenuity-Helper/blob/main/EdgenuityHelper.js
 var is_auto_clicking = true;
 // Default = true (If problems occur, try turning this off by replacing true with false)
 // Description: This will automatically click the next button
@@ -96,6 +96,21 @@ function RespondOut()
     ButtonColor("#0A6522")
 }
 
+function brainly()
+{
+    localStorage.clear()
+    window.onload = function () {
+    	document.getElementsByClassName("brn-expanded-bottom-banner")[0].remove()
+    	document.getElementsByClassName("brn-brainly-plus-box")[0].remove()
+    	document.getElementsByClassName("brn-fullscreen-toplayer")[0].remove()
+    	document.getElementsByClassName("sg-overlay sg-overlay--dark")[0].remove()
+}
+    
+function ()
+{
+    test
+}
+
 (function() {
     'use strict';
     /*
@@ -130,7 +145,7 @@ variable current_page is unused as of right now because of a bug
             const infoElemSelector = "div#lessonInfo";
 
             btn.addEventListener("click", RespondClick);
-            input.addEventListener('submit',RespondClick);
+            input.addEventListener("submit",RespondClick);
             btn.addEventListener("mouseover", RespondOver);
             btn.addEventListener("mouseout", RespondOut);
 
@@ -218,5 +233,15 @@ variable current_page is unused as of right now because of a bug
         }
         //}
     }
-    loadpage();
+    
+    switch(){
+        case 'https://core.learn.edgenuity.com':
+            loadpage();
+            break;
+        case 'https://brainly.com/question/':
+            brainly();
+            break;
+        default:
+            loadpage();
+    }
 })();
