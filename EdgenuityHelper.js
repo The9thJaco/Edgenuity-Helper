@@ -2,12 +2,21 @@
 // @name         Edgenuity Helper
 // @namespace    http://https://github.com/The9thJaco
 // @version      0.1
-// @description  an automatic next clicker
+// @description  an automatic next clicker. This helps you move on with lessons and going on to the next question. Adds a search bar to edgenuity to help search up the answer.
 // @author       9th jaco
 // @match        *://*.core.learn.edgenuity.com/*
 // @match        https://brainly.com/question/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=edgenuity.com
-// @grant        none
+// @require      https://github.com/The9thJaco/Edgenuity-Helper/blob/main/EdgenuityHelper.js
+// @license      MIT
+// @grant        GM_addStyle
+// @grant        GM_deleteValue
+// @grant        GM_getValue
+// @grant        GM_info
+// @grant        GM_registerMenuCommand
+// @grant        GM_setValue
+// @grant        GM_unregisterMenuCommand
+// @grant        GM_xmlhttpRequest
 // ==/UserScript==
 
 var skip_speaking_intros = true;
@@ -16,7 +25,6 @@ var skip_speaking_intros = true;
 // Bugs:
 //
 // May cause "Unable to load video file." error (You can change skip_speaking_intros if this problem occurs).  The program as of right now will just turn off the display of the error message that pops up.  I will look into fixing it
-//https://github.com/The9thJaco/Edgenuity-Helper/blob/main/EdgenuityHelper.js
 var is_auto_clicking = true;
 // Default = true (If problems occur, try turning this off by replacing true with false)
 // Description: This will automatically click the next button
@@ -104,11 +112,7 @@ function brainly()
     	document.getElementsByClassName("brn-brainly-plus-box")[0].remove()
     	document.getElementsByClassName("brn-fullscreen-toplayer")[0].remove()
     	document.getElementsByClassName("sg-overlay sg-overlay--dark")[0].remove()
-}
-    
-function ()
-{
-    test
+    }
 }
 
 (function() {
@@ -234,7 +238,7 @@ variable current_page is unused as of right now because of a bug
         //}
     }
     
-    switch(){
+    switch(location.hostname){
         case 'https://core.learn.edgenuity.com':
             loadpage();
             break;
