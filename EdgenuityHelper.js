@@ -6,6 +6,7 @@
 // @author       9th jaco
 // @match        *://*.core.learn.edgenuity.com/*
 // @match        https://brainly.com/question/*
+// @match        *://github.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=edgenuity.com
 // @require      https://github.com/The9thJaco/Edgenuity-Helper/blob/main/EdgenuityHelper.js
 // @license      MIT
