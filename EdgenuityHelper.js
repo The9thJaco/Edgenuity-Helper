@@ -183,7 +183,7 @@ variable current_page is unused as of right now because of a bug
                     }
                     setTimeout(loadpage, 1000);
                 }
-                //document.querySelector('iframe').contentWindow.API.E2020.freeMovement = true
+                document.querySelector('iframe').contentWindow.API.E2020.freeMovement = true
                 current_frame = document.getElementsByClassName("FrameCurrent FrameComplete")[0];
                 //if(current_frame){
                 //current_frame_id = current_frame.id;
@@ -236,13 +236,14 @@ variable current_page is unused as of right now because of a bug
         }
         //}
     }
-
     switch(document.URL){
-        case 'https://r22.core.learn.edgenuity.com/Player/':
-            loadpage();
-            break;
-        default:
-            brainly();
-            break;
-    }
+            case 'https://r22.core.learn.edgenuity.com/Player/':
+                loadpage();
+                break;
+            case 'https://brainly.com/question/' + document.URL.replace( /^\D+/g, ''):
+                brainly();
+                break;
+            default:
+                loadpage();
+        }
 })();
