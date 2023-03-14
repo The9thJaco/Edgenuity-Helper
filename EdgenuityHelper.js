@@ -2,14 +2,11 @@
 // @name         Edgenuity Helper
 // @namespace    http://https://github.com/The9thJaco
 // @version      0.1
-// @description  an automatic next clicker. This helps you move on with lessons and going on to the next question. Adds a search bar to edgenuity to help search up the answer.
+// @description  an automatic next clicker
 // @author       9th jaco
 // @match        *://*.core.learn.edgenuity.com/*
 // @match        https://brainly.com/question/*
-// @match        *://github.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=edgenuity.com
-// @require      https://github.com/The9thJaco/Edgenuity-Helper/blob/main/EdgenuityHelper.js
-// @license      MIT
 // @grant        GM_addStyle
 // @grant        GM_deleteValue
 // @grant        GM_getValue
@@ -26,6 +23,7 @@ var skip_speaking_intros = true;
 // Bugs:
 //
 // May cause "Unable to load video file." error (You can change skip_speaking_intros if this problem occurs).  The program as of right now will just turn off the display of the error message that pops up.  I will look into fixing it
+
 var is_auto_clicking = true;
 // Default = true (If problems occur, try turning this off by replacing true with false)
 // Description: This will automatically click the next button
@@ -109,10 +107,10 @@ function brainly()
 {
     localStorage.clear()
     window.onload = function () {
-    	document.getElementsByClassName("brn-expanded-bottom-banner")[0].remove()
-    	document.getElementsByClassName("brn-brainly-plus-box")[0].remove()
-    	document.getElementsByClassName("brn-fullscreen-toplayer")[0].remove()
-    	document.getElementsByClassName("sg-overlay sg-overlay--dark")[0].remove()
+        document.getElementsByClassName("brn-expanded-bottom-banner")[0].remove()
+        document.getElementsByClassName("brn-brainly-plus-box")[0].remove()
+        document.getElementsByClassName("brn-fullscreen-toplayer")[0].remove()
+        document.getElementsByClassName("sg-overlay sg-overlay--dark")[0].remove()
     }
 }
 
@@ -150,7 +148,7 @@ variable current_page is unused as of right now because of a bug
             const infoElemSelector = "div#lessonInfo";
 
             btn.addEventListener("click", RespondClick);
-            input.addEventListener("submit",RespondClick);
+            input.addEventListener('submit',RespondClick);
             btn.addEventListener("mouseover", RespondOver);
             btn.addEventListener("mouseout", RespondOut);
 
@@ -185,7 +183,7 @@ variable current_page is unused as of right now because of a bug
                     }
                     setTimeout(loadpage, 1000);
                 }
-                document.querySelector('iframe').contentWindow.API.E2020.freeMovement = true
+                //document.querySelector('iframe').contentWindow.API.E2020.freeMovement = true
                 current_frame = document.getElementsByClassName("FrameCurrent FrameComplete")[0];
                 //if(current_frame){
                 //current_frame_id = current_frame.id;
@@ -238,15 +236,13 @@ variable current_page is unused as of right now because of a bug
         }
         //}
     }
-    
-    switch(location.hostname){
-        case 'https://core.learn.edgenuity.com':
+
+    switch(document.URL){
+        case 'https://r22.core.learn.edgenuity.com/Player/':
             loadpage();
-            break;
-        case 'https://brainly.com/question/':
-            brainly();
             break;
         default:
-            loadpage();
+            brainly();
+            break;
     }
 })();
