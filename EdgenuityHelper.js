@@ -148,7 +148,7 @@ variable current_page is unused as of right now because of a bug
             const infoElemSelector = "div#lessonInfo";
 
             btn.addEventListener("click", RespondClick);
-            input.addEventListener('submit',RespondClick);
+            input.addEventListener('keypress', function (e) {if (e.key === 'Enter') {RespondClick();}});
             btn.addEventListener("mouseover", RespondOver);
             btn.addEventListener("mouseout", RespondOut);
 
