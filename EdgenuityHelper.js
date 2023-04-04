@@ -18,38 +18,11 @@
 // ==/UserScript==
 
 var skip_speaking_intros = true;
-// Default = true (If problems occur, try turning this off by replacing true with false)
-// Description: This will allow the user to check boxes, complete assignments, or skip instructions as the speaker is talking as in the intro buttons.  If problems are occuring, try turning this off
-// Bugs:
-//
-// May cause "Unable to load video file." error (You can change skip_speaking_intros if this problem occurs).  The program as of right now will just turn off the display of the error message that pops up.  I will look into fixing it
-
 var is_auto_clicking = true;
-// Default = true (If problems occur, try turning this off by replacing true with false)
-// Description: This will automatically click the next button
-// Bugs:
-//
-// Untested if left at false
-// MAJOR: After Direct Instructions, it will get stuck in a loop at going to the next assignment.  This must be fixed!
-
 var autodefi = true;
-// Default = true (If problems occur, try turning this off by replacing true with false)
-// Description: This will fill out textboxes for Vocabulary automatically using a method found by /u/Turtlemower.  The code for this part of the script was created by /u/Mrynot88 and has been greatly appreciated.
-// Bugs:
-//
-// Currently, there are no bugs reported!
-
 var prevent_inactive = true;
-// Default = true (If problems occur, try turning this off by replacing true with false)
-// Description: This will prevent inactivity emails and automatic logoff.  The code for this part of the script was created by XANADryden.
-// Bugs:
-//
-// Doesn't yet work, TODO: Change element
-
 var question_search = true;
-
 var lookForQuestion = true;
-
 var e;
 
 function triggerEvent(el, type) {
@@ -65,30 +38,45 @@ function triggerEvent(el, type) {
         el.fireEvent('on'+e.eventType, e);
     }
 }
-let input = document.createElement("input");
-input.id = "InsertQuestion";
-input.placeholder = "Put Question Here";
+let inputSearchUpQuestion = document.createElement("input");
+inputSearchUpQuestion.id = "InsertQuestion";
+inputSearchUpQuestion.placeholder = "Put Question Here";
 
-let btn = document.createElement("button");
+let txtQuesAsked = document.createElement("h2")
+let txtAnswer = document.createElement("text")
 
-btn.id = "SearchUpQuestion";
-btn.style.color = "#FFFFFF";
-btn.style.border = "2px solid #D3D3D3";
-btn.style.borderRadius = "32px";
-btn.style.cursor = "pointer";
-btn.style.marginRight = "4px";
-btn.textContent = "Search Up Answer";
-btn.style.backgroundColor = "#0A6522";
+let btnSearchUpQuestion = document.createElement("button");
+btnSearchUpQuestion.id = "SearchUpQuestion";
+btnSearchUpQuestion.style.color = "#FFFFFF";
+btnSearchUpQuestion.style.border = "2px solid #D3D3D3";
+btnSearchUpQuestion.style.borderRadius = "32px";
+btnSearchUpQuestion.style.cursor = "pointer";
+btnSearchUpQuestion.style.marginRight = "4px";
+btnSearchUpQuestion.textContent = "Search Up Answer";
+btnSearchUpQuestion.style.backgroundColor = "#0A6522";
+
+var TheQuestion
 
 function ButtonColor(color)
 {
-    btn.style.backgroundColor = color;
+    btnSearchUpQuestion.style.backgroundColor = color;
 }
 
 function RespondClick()
 {
     ButtonColor("#00FF00")
-    var url = "https://www.bing.com/search?q=" + input.value;
+    var url = "https://www.bing.com/search?q=" + inputSearchUpQuestion.value;
+    txtQuesAsked.innerHTML = "Asked: " + inputSearchUpQuestion.value;
+    //txtAnswer.innerHTML = "Answer: " + inputSearchUpQuestion.value;
+    //search?q=site:brainly.com+
+    //"https://brainly.com/app/ask?q=" + input.value;
+    window.open(url, '_blank');
+    document.getElementById("SearchQuestion").reset();
+}
+function RespondClick2()
+{
+    var url = "https://www.bing.com/search?q=" + inputSearchUpQuestion.value;
+    txtQuesAsked.innerHTML = "Asked: " + inputSearchUpQuestion.value;
     //search?q=site:brainly.com+
     //"https://brainly.com/app/ask?q=" + input.value;
     window.open(url, '_blank');
@@ -101,6 +89,66 @@ function RespondOver()
 function RespondOut()
 {
     ButtonColor("#0A6522")
+}
+
+function test()
+{
+    var TheQuestion = document.getElementsByClassName("Practice_Question_Body")[0];
+    //TheQuestion.setAttribute("id", "Practice_Question_Body_TheQuestion");
+
+    var AnswerChoices = document.getElementsByClassName("Practice_Question_Body")[1];
+    //AnswerChoices.setAttribute("id", "Practice_Question_Body_AnswerChoices");
+
+    let txtAnswerTitle = document.createElement("h1")
+    txtAnswerTitle.id = "txtAnswerTitle";
+    txtAnswerTitle.innerHTML = "The Answer in down Below in Blue";
+    txtAnswerTitle.style.cssText = "font-size: 40px; color: #FDEFBF;";
+    txtAnswerTitle.style.left = "150px";
+    txtAnswerTitle.style.position = 'absolute';
+
+    txtQuesAsked.id = "txtQuesAsked";
+    txtQuesAsked.style.cssText = "font-size: 15px; color: #FF0000;";
+    txtQuesAsked.style.left = "150px";
+    txtQuesAsked.style.top = "225px";
+    txtQuesAsked.style.position = 'absolute';
+
+    txtAnswer.id = "txtAnswer";
+    txtAnswer.innerHTML = "The answer will be put here";
+    txtAnswer.style.cssText = "font-size: 20px; color: #0052FF;";
+
+    let AnswerMainDiv = document.createElement("div");
+    AnswerMainDiv.id = "AnswerMainDiv";
+    AnswerMainDiv.setAttribute("data-bind", "style: { width: !$root.stageView().useLargePlayer() ? $root.stageView().width : '' }, with: $root.stageView");
+    AnswerMainDiv.style = "width: 854px;";
+    AnswerMainDiv.style.padding = "10px 475px";
+    AnswerMainDiv.style.margin = "0 auto"
+
+    let AnswerBoxDiv = document.createElement("div");
+    AnswerBoxDiv.id = "AnswerBoxDiv";
+    AnswerBoxDiv.setAttribute("data-bind", "style: { width: !$root.stageView().useLargePlayer() ? $root.stageView().width : '' }, with: $root.stageView");
+    AnswerBoxDiv.style = "width: 500px;";
+    AnswerBoxDiv.style.padding = "75px 15px";
+    AnswerBoxDiv.style.margin = "0 auto"
+
+    var lessonInfo = document.getElementById("lesson-title");
+
+    const infoElemSelector = "div#lessonInfo";
+
+    //AnswerMainDiv.appendChild(inputAnswerQuestion);
+    AnswerMainDiv.appendChild(txtAnswerTitle);
+    AnswerMainDiv.appendChild(txtQuesAsked);
+
+    AnswerMainDiv.appendChild(AnswerBoxDiv);
+    AnswerBoxDiv.appendChild(txtAnswer)
+
+    if(TheQuestion)
+    {
+    }
+    if(lessonInfo)
+    {
+        let infoElem = document.querySelector(infoElemSelector);
+        infoElem.parentElement.insertBefore(AnswerMainDiv, infoElem.nextSibling);
+    }
 }
 
 function brainly()
@@ -139,6 +187,7 @@ variable current_page is unused as of right now because of a bug
     function loadpage() {
         if(question_search)
         {
+            //test();
             let SearchQuestionDiv = document.createElement("div");
             SearchQuestionDiv.id = "SearchQuestion";
             SearchQuestionDiv.setAttribute("data-bind", "style: { width: !$root.stageView().useLargePlayer() ? $root.stageView().width : '' }, with: $root.stageView");
@@ -147,13 +196,13 @@ variable current_page is unused as of right now because of a bug
             var lessonInfo = document.getElementById("lesson-title");
             const infoElemSelector = "div#lessonInfo";
 
-            btn.addEventListener("click", RespondClick);
-            input.addEventListener('keypress', function (e) {if (e.key === 'Enter') {RespondClick();}});
-            btn.addEventListener("mouseover", RespondOver);
-            btn.addEventListener("mouseout", RespondOut);
+            btnSearchUpQuestion.addEventListener("click", RespondClick);
+            inputSearchUpQuestion.addEventListener('keypress', function (e) {if (e.key === 'Enter') {RespondClick2();}});
+            btnSearchUpQuestion.addEventListener("mouseover", RespondOver);
+            btnSearchUpQuestion.addEventListener("mouseout", RespondOut);
 
-            SearchQuestionDiv.appendChild(input);
-            SearchQuestionDiv.appendChild(btn);
+            SearchQuestionDiv.appendChild(inputSearchUpQuestion);
+            SearchQuestionDiv.appendChild(btnSearchUpQuestion);
             if(lessonInfo)
             {
                 let infoElem = document.querySelector(infoElemSelector);
@@ -175,6 +224,7 @@ variable current_page is unused as of right now because of a bug
                 current_page = document.getElementById("activity-title");
                 nextactivity = document.getElementsByClassName("footnav goRight")[0];
                 nextactivity_disabled = document.getElementsByClassName("footnav goRight disabled")[0];
+                var PracticeQuestion = document.getElementsByClassName("Practice_Question_Body")[0];
                 if (nextactivity && !nextactivity_disabled) {
                     nextactivity.click();
                     clearInterval(pageload);
@@ -183,7 +233,17 @@ variable current_page is unused as of right now because of a bug
                     }
                     setTimeout(loadpage, 1000);
                 }
-                document.querySelector('iframe').contentWindow.API.E2020.freeMovement = true
+                if(nextactivity_disabled)
+                {
+                    txtQuesAsked.innerHTML = (function() {
+                        if (PracticeQuestion){
+                            TheQuestion = PracticeQuestion;
+                            "Asked: " + TheQuestion.nextSibling.innerHTML;
+                        }
+
+                    })
+                }
+                //document.querySelector('iframe').contentWindow.API.E2020.freeMovement = true
                 current_frame = document.getElementsByClassName("FrameCurrent FrameComplete")[0];
                 //if(current_frame){
                 //current_frame_id = current_frame.id;
@@ -237,13 +297,13 @@ variable current_page is unused as of right now because of a bug
         //}
     }
     switch(document.URL){
-            case 'https://r22.core.learn.edgenuity.com/Player/':
-                loadpage();
-                break;
-            case 'https://brainly.com/question/' + document.URL.replace( /^\D+/g, ''):
-                brainly();
-                break;
-            default:
-                loadpage();
-        }
+        case 'https://r22.core.learn.edgenuity.com/Player/':
+            loadpage();
+            break;
+        case 'https://brainly.com/question/' + document.URL.replace( /^\D+/g, ''):
+            brainly();
+            break;
+        default:
+            loadpage();
+    }
 })();
